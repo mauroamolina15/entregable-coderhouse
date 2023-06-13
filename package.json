@@ -1,0 +1,26 @@
+{
+  "name": "entregable-coderhouse",
+  "version": "1.0.0",
+  "description": "Proyecto del curso de backend con NodeJS de Coderhouse",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mauroamolina15/entregable-coderhouse.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mauroamolina15/entregable-coderhouse/issues"
+  },
+  "homepage": "https://github.com/mauroamolina15/entregable-coderhouse#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
