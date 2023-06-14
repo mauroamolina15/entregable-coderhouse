@@ -1,5 +1,4 @@
 import fs from "fs";
-import { PRODUCTS_FILE_PATH } from "../constants/index.js";
 
 class ProductManager {
   constructor(path) {
