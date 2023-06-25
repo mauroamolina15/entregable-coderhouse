@@ -1,0 +1,5 @@
+export const ERROR_CODE = {
+  VALIDATION: 400,
+  NOT_FOUND: 404,
+  SERVER: 500,
+};
