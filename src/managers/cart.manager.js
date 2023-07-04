@@ -1,4 +1,5 @@
 import { CARTS_FILE_PATH } from "../constants/index.js";
+import { TEXTS } from "../constants/texts.js";
 import {
   generateIncrementalID,
   getDataFromFile,
@@ -25,7 +26,7 @@ export const getProductsFromCart = async (cid) => {
   try {
     const carts = await getDataFromFile(CARTS_FILE_PATH);
     const cart = carts.findIndex((item) => item.id === cid);
-    if (cart === -1) throw new NotFoundError(`Cart with id ${cid} not found`);
+    if (cart === -1) throw new NotFoundError(TEXTS.CART_NOT_FOUND(cid));
     return carts[cart].products;
   } catch (err) {
     throw err;
@@ -37,7 +38,7 @@ export const addProductToCart = async (pid, cid) => {
     await getProductById(pid);
     const carts = await getDataFromFile(CARTS_FILE_PATH);
     const cart = carts.find((cart) => cart.id === cid);
-    if (!cart) throw new NotFoundError(`Cart with id ${cid} not found`);
+    if (!cart) throw new NotFoundError(TEXTS.CART_NOT_FOUND(cid));
     const productInCart = cart.products.find((prod) => prod.id === pid);
     if (productInCart) {
       productInCart.quantity += 1;

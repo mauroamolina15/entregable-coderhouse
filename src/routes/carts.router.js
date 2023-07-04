@@ -5,13 +5,14 @@ import {
   getProductsFromCart,
 } from "../managers/cart.manager.js";
 import { verifyIDType } from "../middlewares/validations.js";
+import { TEXTS } from "../constants/texts.js";
 const router = Router();
 
 router.post("/", async (req, res, next) => {
   try {
     await createCart();
     return res.status(201).json({
-      msg: "Cart created successfully",
+      msg: TEXTS.CREATED_CART,
     });
   } catch (err) {
     console.log(`[Error]: ${err.message}`);
@@ -40,7 +41,7 @@ router.post("/:cid/product/:pid", verifyIDType, async (req, res, next) => {
     const productId = parseInt(req.params.pid);
     await addProductToCart(productId, cartId);
     res.status(200).json({
-      msg: `Product with id ${productId} added successfully`,
+      msg: TEXTS.CRUD_ACTION_SUCCESS(pid, "added"),
     });
   } catch (err) {
     console.log(`[Error]: ${err.message}`);

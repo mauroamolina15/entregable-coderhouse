@@ -10,6 +10,7 @@ import {
   verifyProductFields,
   verifyIDType,
 } from "../middlewares/validations.js";
+import { TEXTS } from "../constants/texts.js";
 const router = Router();
 
 router.get("/", async (req, res, next) => {
@@ -43,7 +44,7 @@ router.post("/", verifyProductFields, async (req, res, next) => {
     const product = req.body;
     await addProduct(product);
     return res.status(201).json({
-      msg: "Product created successfully",
+      msg: TEXTS.CREATED_PRODUCT,
     });
   } catch (err) {
     console.log(`[Error]: ${err.message}`);
@@ -61,7 +62,7 @@ router.put(
       const productId = parseInt(req.params.pid);
       await updateProduct(productId, updatedFields);
       return res.status(200).json({
-        msg: `Product with id ${productId} updated successfully`,
+        msg: TEXTS.CRUD_ACTION_SUCCESS(productId, "updated"),
       });
     } catch (err) {
       console.log(`[Error]: ${err.message}`);
@@ -75,7 +76,7 @@ router.delete("/:pid", verifyIDType, async (req, res, next) => {
     const productId = parseInt(req.params.pid);
     await deleteProduct(productId);
     return res.status(200).json({
-      msg: `Product with id ${productId} deleted successfully`,
+      msg: TEXTS.CRUD_ACTION_SUCCESS(productId, "deleted"),
     });
   } catch (err) {
     console.log(`[Error]: ${err.message}`);

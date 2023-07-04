@@ -9,6 +9,7 @@ import {
   PRODUCT_REQUIRED_FIELDS,
 } from "../constants/index.js";
 import { validateRequiredFields } from "../utils/validations.js";
+import { TEXTS } from "../constants/texts.js";
 
 export const addProduct = async (product) => {
   try {
@@ -35,7 +36,7 @@ export const getProductById = async (pid) => {
   try {
     const products = await getDataFromFile(PRODUCTS_FILE_PATH);
     const product = products.find((product) => product.id === pid);
-    if (!product) throw new NotFoundError(`Product with id ${pid} not found.`);
+    if (!product) throw new NotFoundError(TEXTS.PRODUCT_NOT_FOUND(pid));
     return product;
   } catch (err) {
     throw err;
@@ -47,9 +48,9 @@ export const updateProduct = async (pid, updatedFields) => {
     const products = await getDataFromFile(PRODUCTS_FILE_PATH);
     const productIndex = products.findIndex((prod) => prod.id === pid);
     if (productIndex === -1)
-      throw new NotFoundError(`Product with id ${pid} not found`);
+      throw new NotFoundError(TEXTS.PRODUCT_NOT_FOUND(pid));
     if ("id" in updatedFields)
-      throw new ValidationError("Cannot update Product ID field");
+      throw new ValidationError(TEXTS.CANNOT_UPDATE_ID);
     for (const field in updatedFields) {
       products[productIndex][field] = updatedFields[field];
     }
@@ -65,7 +66,7 @@ export const deleteProduct = async (pid) => {
     const products = await getDataFromFile(PRODUCTS_FILE_PATH);
     const updatedProducts = products.filter((prod) => prod.id !== pid);
     if (updatedProducts.length === products.length)
-      throw new NotFoundError(`Product with id ${pid} not found`);
+      throw new NotFoundError(TEXTS.PRODUCT_NOT_FOUND(pid));
     await saveDataInFile(PRODUCTS_FILE_PATH, updatedProducts);
   } catch (err) {
     throw err;
@@ -74,6 +75,6 @@ export const deleteProduct = async (pid) => {
 
 const validateCodeUnique = (code, products) => {
   if (products.some((product) => product.code === code)) {
-    throw new ValidationError(`Product code "${code}" already exists`);
+    throw new ValidationError(TEXTS.PRODUCT_CODE_ALREADY_EXISTS(code));
   }
 };
