@@ -7,4 +7,6 @@ export const TEXTS = {
   PRODUCT_CODE_ALREADY_EXISTS: (code) => `Product code ${code} already exists`,
   CART_NOT_FOUND: (cid) => `Cart with id ${cid} not found`,
   CREATED_CART: () => "Cart created successfully",
+  BD_CONNECTION_ERROR: "Error trying to connect to database",
+  BD_CONNECTION_SUCCESS: "🚀 Database connected successfully!",
 };

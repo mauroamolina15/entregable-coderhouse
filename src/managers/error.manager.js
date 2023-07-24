@@ -12,3 +12,5 @@ const createErrorFactory = function (errorStatusCode) {
 export const ServerError = createErrorFactory(ERROR_CODE.SERVER);
 export const ValidationError = createErrorFactory(ERROR_CODE.VALIDATION);
 export const NotFoundError = createErrorFactory(ERROR_CODE.NOT_FOUND);
+export const BDError = createErrorFactory(ERROR_CODE.BD);
+export const ServiceError = createErrorFactory(ERROR_CODE.SERVICE);
