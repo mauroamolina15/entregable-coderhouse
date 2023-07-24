@@ -1,11 +1,10 @@
+import { PRODUCT_REQUIRED_FIELDS } from "../constants/index.js";
 import { TEXTS } from "../constants/texts.js";
 import * as service from "../services/product.service.js";
 import { validateRequiredFields } from "../utils/validations.js";
 
 export const getProducts = async (req, res, next) => {
   try {
-    // const products = await getProducts();
-    // const limitedProducts = isNaN(limit) ? products : products.slice(0, limit);
     const limit = parseInt(req.query.limit);
     const products = await service.getProducts(limit);
     return res.status(200).json({
