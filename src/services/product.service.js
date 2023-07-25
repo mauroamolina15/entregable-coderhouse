@@ -1,5 +1,11 @@
+import { TEXTS } from "../constants/texts.js";
 import ProductDAO from "../daos/db/product.dao.js";
-import { ServiceError, ValidationError } from "../managers/error.manager.js";
+import {
+  NotFoundError,
+  ServerError,
+  ServiceError,
+  ValidationError,
+} from "../managers/error.manager.js";
 
 const productDAO = new ProductDAO();
 
@@ -8,44 +14,46 @@ export const getProducts = async (limit = 0) => {
     const response = await productDAO.getProducts(limit);
     return response;
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };
 
-export const getProductById = async (id) => {
+export const getProductById = async (pid) => {
   try {
-    const product = await productDAO.getProductById(id);
-    if (!product) return false;
-    else return product;
+    const product = await productDAO.getProductById(pid);
+    if (product) return product;
+    throw new NotFoundError(TEXTS.PRODUCT_NOT_FOUND(pid));
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
 export const createProduct = async (product) => {
   try {
     const newProd = await productDAO.createProduct(product);
-    if (!newProd) return false;
-    else return newProd;
+    if (newProd) return newProd;
+    throw new ValidationError(TEXTS.PRODUCT_CREATION_ERROR);
   } catch (error) {
-    throw new ValidationError(error.message);
+    throw error;
   }
 };
 
 export const updateProduct = async (pid, product) => {
   try {
     const updatedProduct = await productDAO.updateProduct(pid, product);
-    return updatedProduct;
+    if (updatedProduct) return updateProduct;
+    throw new ValidationError(TEXTS.PRODUCT_UPDATING_ERROR(pid));
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
 export const deleteProduct = async (pid) => {
   try {
     const deletedProduct = await productDAO.deleteProduct(pid);
-    return deletedProduct;
+    if (deletedProduct) return deletedProduct;
+    throw new NotFoundError(TEXTS.PRODUCT_DELETE_ERROR);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };

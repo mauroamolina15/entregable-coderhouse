@@ -32,7 +32,6 @@ export const createProduct = async (req, res, next) => {
   try {
     const product = req.body;
     validateRequiredFields(product, PRODUCT_REQUIRED_FIELDS);
-    //validateCodeUnique(product.code, products);
     await service.createProduct(product);
     return res.status(201).json({
       msg: TEXTS.CREATED_PRODUCT,
@@ -48,7 +47,6 @@ export const updateProduct = async (req, res, next) => {
   try {
     const updatedFields = req.body;
     const productId = req.params.pid;
-    // await updateProduct(productId, updatedFields);
     await service.updateProduct(productId, updatedFields);
     return res.status(200).json({
       msg: TEXTS.CRUD_ACTION_SUCCESS(productId, "updated"),
@@ -62,7 +60,7 @@ export const updateProduct = async (req, res, next) => {
 export const deleteProduct = async (req, res, next) => {
   try {
     const productId = req.params.pid;
-    service.deleteProduct(productId);
+    await service.deleteProduct(productId);
     return res.status(200).json({
       msg: TEXTS.CRUD_ACTION_SUCCESS(productId, "deleted"),
     });

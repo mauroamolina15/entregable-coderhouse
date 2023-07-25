@@ -1,4 +1,5 @@
-import { BDError } from "../../managers/error.manager.js";
+import { TEXTS } from "../../constants/texts.js";
+import { NotFoundError } from "../../managers/error.manager.js";
 import { Product } from "./models/product.model.js";
 
 export default class ProductDAO {
@@ -7,7 +8,8 @@ export default class ProductDAO {
       const response = await Product.find({}).limit(limit || null);
       return response;
     } catch (err) {
-      console.log(err);
+      //TODO: handleDAOError(error);
+      console.log(err.message);
     }
   }
 
@@ -15,8 +17,8 @@ export default class ProductDAO {
     try {
       const response = await Product.findById(id);
       return response;
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err.message);
     }
   }
 
@@ -24,9 +26,8 @@ export default class ProductDAO {
     try {
       const response = await Product.create(product);
       return response;
-    } catch (error) {
-      console.log({ error });
-      throw new BDError(error.message);
+    } catch (err) {
+      console.log(err.message);
     }
   }
 
@@ -36,17 +37,18 @@ export default class ProductDAO {
         new: true,
       });
       return response;
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err.message);
     }
   }
 
   async deleteProduct(pid) {
     try {
-      const response = await Product.findByIdAndDelete(pid);
-      return response;
-    } catch (error) {
-      console.log(error);
+      const productDeleted = await Product.findByIdAndDelete(pid);
+      if (productDeleted) return productDeleted;
+      throw new NotFoundError(TEXTS.PRODUCT_DELETE_ERROR(pid));
+    } catch (err) {
+      console.log(err.message);
     }
   }
 }

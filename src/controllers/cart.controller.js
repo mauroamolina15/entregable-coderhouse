@@ -17,7 +17,7 @@ export const getProductsFromCart = async (req, res, next) => {
 
 export const createCart = async (req, res, next) => {
   try {
-    const newCart = await service.createCart();
+    await service.createCart();
     return res.status(201).json({
       msg: TEXTS.CREATED_CART,
     });

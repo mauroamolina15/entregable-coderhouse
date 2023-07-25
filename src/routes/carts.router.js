@@ -7,6 +7,6 @@ router.post("/", controller.createCart);
 
 router.get("/:cid", verifyIDType, controller.getProductsFromCart);
 
-router.post("/:cid/product/:pid", verifyIDType, controller.addProductToCart);
+router.post("/:cid/product/:pid", controller.addProductToCart);
 
 export default router;

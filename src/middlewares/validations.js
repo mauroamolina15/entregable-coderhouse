@@ -9,6 +9,7 @@ export const verifyProductFields = (req, _res, next) => {
   next();
 };
 
+//No es necesario con BD.
 export const verifyIDType = (req, _res, next) => {
   Object.keys(req.params).forEach((param) => {
     if (!parseInt(req.params[param]))
