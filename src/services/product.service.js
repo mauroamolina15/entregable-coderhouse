@@ -9,9 +9,9 @@ import {
 
 const productDAO = new ProductDAO();
 
-export const getProducts = async (limit = 0) => {
+export const getProducts = async (args) => {
   try {
-    const response = await productDAO.getProducts(limit);
+    const response = await productDAO.getProducts(args);
     return response;
   } catch (err) {
     throw err;

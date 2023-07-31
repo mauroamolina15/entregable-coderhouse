@@ -6,10 +6,23 @@ import { errorHandler } from "./middlewares/errors.js";
 import handlebars from "express-handlebars";
 import { __dirname } from "./utils.js";
 import { connectMongo } from "./daos/db/connection.js";
+import Handlebars from "handlebars";
+import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
+
+app.engine(
+  "handlebars",
+  handlebars.engine({
+    defaultLayout: "main",
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+  })
+);
+app.set("views", __dirname + "/views");
+app.set("view engine", "handlebars");
 
 app.use(API_ENDPOINT, router);
 app.use(errorHandler);

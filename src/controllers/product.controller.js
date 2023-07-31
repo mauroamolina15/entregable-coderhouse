@@ -5,11 +5,25 @@ import { validateRequiredFields } from "../utils/validations.js";
 
 export const getProducts = async (req, res, next) => {
   try {
-    const limit = parseInt(req.query.limit);
-    const products = await service.getProducts(limit);
+    const args = req.query;
+    const products = await service.getProducts(args);
+    const nextLink = products.hasNextPage
+      ? `http://localhost:8080/api/products?page=${products.nextPage}`
+      : null;
+    const prevLink = products.hasPrevPage
+      ? `http://localhost:8080/api/products?page=${products.prevPage}`
+      : null;
     return res.status(200).json({
-      results: products.length,
-      data: products,
+      status: "Success",
+      payload: products.docs,
+      totalPages: products.totalPages,
+      prevPage: products.prevPage,
+      nextPage: products.nextPage,
+      page: products.page,
+      hasPrevPage: products.hasPrevPage,
+      hasNextPage: products.hasNextPage,
+      prevLink,
+      nextLink,
     });
   } catch (err) {
     console.log(`[Error]: ${err.message}`);

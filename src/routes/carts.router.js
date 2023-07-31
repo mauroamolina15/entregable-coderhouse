@@ -9,4 +9,12 @@ router.get("/:cid", verifyIDType, controller.getProductsFromCart);
 
 router.post("/:cid/product/:pid", controller.addProductToCart);
 
+router.delete("/:cid/product/:pid", controller.deleteProductFromCart);
+
+router.put("/:cid", controller.updateCart);
+
+router.put("/:cid/product/:pid", controller.updateProductQuantityFromCart);
+
+router.delete("/:cid", controller.deleteAllProductsFromCart);
+
 export default router;

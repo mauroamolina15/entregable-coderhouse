@@ -1,0 +1,18 @@
+<div class="header">
+    <h1>Products</h1>
+    <span id="cart">Ver carrito</span>
+</div>
+<h2>Lista de productos</h2>
+
+{{#if products.length}}
+    {{#each products}}
+        <ul class="product-list" id="product-data">
+            <li class="product-item">{{title}} - ${{price}}</li>
+            <button id="add-to-cart-{{_id}}" class="add-to-cart-btn" data-product="{{_id}}">Agregar al carrito</button>
+        </ul>
+    {{/each}}
+{{else}}
+    <p>No hay productos</p>
+{{/if}}
+
+<script src="/index.js"></script>
