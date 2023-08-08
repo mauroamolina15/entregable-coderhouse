@@ -1,18 +1,37 @@
 import express from "express";
 import router from "./routes/index.js";
-import { API_ENDPOINT, SERVER_PORT } from "./constants/index.js";
+import { API_ENDPOINT, BD_CONNECTION, SERVER_PORT } from "./constants/index.js";
 import { errorHandler } from "./middlewares/errors.js";
-
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import handlebars from "express-handlebars";
 import { __dirname } from "./utils.js";
 import { connectMongo } from "./daos/db/connection.js";
 import Handlebars from "handlebars";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
+import { userSession } from "./middlewares/userSession.js";
+
+const mongoStoreOptions = {
+  store: MongoStore.create({
+    mongoUrl: BD_CONNECTION,
+    crypto: {
+      secret: "1234",
+    },
+  }),
+  secret: "1234",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 60000,
+  },
+};
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
+app.use(userSession);
 
 app.engine(
   "handlebars",
@@ -23,6 +42,8 @@ app.engine(
 );
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
+
+app.use(session(mongoStoreOptions));
 
 app.use(API_ENDPOINT, router);
 app.use(errorHandler);
