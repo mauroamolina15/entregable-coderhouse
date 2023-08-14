@@ -1,15 +1,18 @@
 import express from "express";
 import router from "./routes/index.js";
+import passport from "passport";
+import Handlebars from "handlebars";
+import handlebars from "express-handlebars";
+import MongoStore from "connect-mongo";
+import session from "express-session";
 import { API_ENDPOINT, BD_CONNECTION, SERVER_PORT } from "./constants/index.js";
 import { errorHandler } from "./middlewares/errors.js";
-import session from "express-session";
-import MongoStore from "connect-mongo";
-import handlebars from "express-handlebars";
 import { __dirname } from "./utils.js";
 import { connectMongo } from "./daos/db/connection.js";
-import Handlebars from "handlebars";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { userSession } from "./middlewares/userSession.js";
+import "./passport/local-strategy.js";
+import "./passport/github-strategy.js";
 
 const mongoStoreOptions = {
   store: MongoStore.create({
@@ -44,6 +47,9 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 
 app.use(session(mongoStoreOptions));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(API_ENDPOINT, router);
 app.use(errorHandler);

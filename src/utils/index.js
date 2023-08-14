@@ -1,3 +1,4 @@
+import { compareSync, genSaltSync, hashSync } from "bcrypt";
 import { existsSync, promises } from "fs";
 
 export const getDataFromFile = async (path) => {
@@ -20,3 +21,7 @@ export const generateIncrementalID = (items) => {
   }
   return maxId + 1;
 };
+
+export const hash = (pwd) => hashSync(pwd, genSaltSync(10));
+
+export const isValidPassword = (pwd, user) => compareSync(pwd, user.password);

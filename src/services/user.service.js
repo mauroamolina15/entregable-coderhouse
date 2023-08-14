@@ -4,7 +4,7 @@ const userDao = new UserDao();
 
 export const registerUser = async (user) => {
   try {
-    const response = await userDao.registerUser(user);
+    const response = await userDao.register(user);
     return response;
   } catch (err) {
     throw err;
@@ -13,7 +13,7 @@ export const registerUser = async (user) => {
 
 export const loginUser = async (user) => {
   try {
-    const response = await userDao.loginUser(user);
+    const response = await userDao.login(user);
     return response;
   } catch (err) {
     throw err;
