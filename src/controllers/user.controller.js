@@ -24,13 +24,46 @@ export const registerUser = async (req, res, next) => {
 
 export const loginUser = async (req, res, next) => {
   try {
-    const user = await service.loginUser(req.body);
-    if (user) {
-      req.session.user = user;
+    const token = await service.loginUser(req.body);
+    if (token) {
+      res.cookie("token", token, { httpOnly: true });
       res.redirect("/api/views/products");
     } else res.redirect("/api/views/error-login");
   } catch (err) {
     console.log(`[Error]: ${err.message}`);
     next(err);
   }
+};
+
+export const viewRegister = async (req, res, next) => {
+  try {
+    const newUser = await service.registerUser(req.body);
+
+    if (!newUser) res.redirect("/error-register");
+    else res.redirect("/login?registerSuccessful=true");
+  } catch (error) {
+    next(error.message);
+  }
+};
+
+export const viewLogin = async (req, res, next) => {
+  try {
+    const token = await service.loginUser(req.body);
+
+    if (!token) return res.redirect("/error-login");
+
+    res.cookie("token", token, { httpOnly: true });
+    res.redirect("/products?loginSuccessful=true");
+  } catch (error) {
+    next(error.message);
+  }
+};
+
+export const logout = (req, res) => {
+  res.clearCookie("token");
+};
+
+export const viewLogout = (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/login");
 };

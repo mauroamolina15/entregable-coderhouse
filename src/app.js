@@ -5,6 +5,7 @@ import Handlebars from "handlebars";
 import handlebars from "express-handlebars";
 import MongoStore from "connect-mongo";
 import session from "express-session";
+import cookieParser from "cookie-parser";
 import { API_ENDPOINT, BD_CONNECTION, SERVER_PORT } from "./constants/index.js";
 import { errorHandler } from "./middlewares/errors.js";
 import { __dirname } from "./utils.js";
@@ -13,6 +14,7 @@ import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access
 import { userSession } from "./middlewares/userSession.js";
 import "./passport/local-strategy.js";
 import "./passport/github-strategy.js";
+import "./passport/jwt-strategy.js";
 
 const mongoStoreOptions = {
   store: MongoStore.create({
@@ -35,6 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use(userSession);
+app.use(cookieParser());
 
 app.engine(
   "handlebars",

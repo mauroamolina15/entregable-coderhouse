@@ -1,5 +1,11 @@
 import { compareSync, genSaltSync, hashSync } from "bcrypt";
 import { existsSync, promises } from "fs";
+import jwt from "jsonwebtoken";
+
+export const getJwtKey = () => {
+  const PRIVATE_KEY = process.env.PRIVATE_KEY;
+  return PRIVATE_KEY;
+};
 
 export const getDataFromFile = async (path) => {
   if (!existsSync(path)) return [];

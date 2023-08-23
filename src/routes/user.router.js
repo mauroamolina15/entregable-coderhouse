@@ -1,43 +1,12 @@
 import { Router } from "express";
-import { loginUser, registerUser } from "../controllers/user.controller.js";
-import passport from "passport";
+import * as controller from "../controllers/user.controller.js";
 const router = Router();
 
-// router.post("/register", registerUser);
-// router.post("/login", loginUser);
-
-router.post(
-  "/register",
-  passport.authenticate("register", {
-    successRedirect: "/api/views/login?registerSuccessful=true",
-    failureRedirect: "/error-register",
-    passReqToCallback: true,
-  })
-);
-
-router.post(
-  "/login",
-  passport.authenticate("login", {
-    successRedirect: "/api/views/products?loginSuccessful=true",
-    failureRedirect: "/error-login",
-    passReqToCallback: true,
-  })
-);
-
-router.get(
-  "/register-github",
-  passport.authenticate("github", {
-    scope: ["user:email"],
-  })
-);
-
-router.get(
-  "/github",
-  passport.authenticate("github", {
-    scope: ["user:email"],
-    failureRedirect: "/error-login",
-    successRedirect: "/api/views/products?loginSuccessful=true",
-  })
-);
+router.post("/register", controller.registerUser);
+router.post("/register-front", controller.viewRegister);
+router.post("/login", controller.loginUser);
+router.post("/login-front", controller.viewLogin);
+router.get("/logout", controller.logout);
+router.get("/logout-front", controller.viewLogout);
 
 export default router;
