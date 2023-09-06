@@ -6,19 +6,20 @@ import handlebars from "express-handlebars";
 import MongoStore from "connect-mongo";
 import session from "express-session";
 import cookieParser from "cookie-parser";
-import { API_ENDPOINT, BD_CONNECTION, SERVER_PORT } from "./constants/index.js";
+import { API_ENDPOINT } from "./constants/index.js";
 import { errorHandler } from "./middlewares/errors.js";
 import { __dirname } from "./utils.js";
-import { connectMongo } from "./daos/db/connection.js";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { userSession } from "./middlewares/userSession.js";
-import "./passport/local-strategy.js";
-import "./passport/github-strategy.js";
-import "./passport/jwt-strategy.js";
+import "dotenv/config";
+import "./config/passport/local-strategy.js";
+import "./config/passport/github-strategy.js";
+import "./config/passport/jwt-strategy.js";
+import "./config/connection.js";
 
 const mongoStoreOptions = {
   store: MongoStore.create({
-    mongoUrl: BD_CONNECTION,
+    mongoUrl: process.env.MONGO_DB_URL,
     crypto: {
       secret: "1234",
     },
@@ -57,7 +58,7 @@ app.use(passport.session());
 app.use(API_ENDPOINT, router);
 app.use(errorHandler);
 
-await connectMongo();
+const SERVER_PORT = process.env.PORT || 8080;
 
 app.listen(SERVER_PORT, () => {
   console.log(`Server listening on port ${SERVER_PORT}`);

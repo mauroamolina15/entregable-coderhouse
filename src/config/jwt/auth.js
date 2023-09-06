@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import UserDao from "../daos/db/user.dao.js";
+import UserDao from "../../daos/db/user.dao.js";
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 

@@ -1,5 +1,5 @@
+import { generateToken } from "../config/jwt/auth.js";
 import UserDao from "../daos/db/user.dao.js";
-import { generateToken } from "../jwt/auth.js";
 
 const userDao = new UserDao();
 
