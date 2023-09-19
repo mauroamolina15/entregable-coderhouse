@@ -2,7 +2,9 @@ import { Router } from "express";
 import * as controller from "../controllers/cart.controller.js";
 import { verifyIDType } from "../middlewares/validations.js";
 import { isAuthenticated } from "../middlewares/isAuthenticated.js";
+import TicketController from "../controllers/ticket.controller.js";
 const router = Router();
+const ticketController = new TicketController();
 
 router.post("/", isAuthenticated, controller.createCart);
 
@@ -25,5 +27,7 @@ router.put(
 );
 
 router.delete("/:cid", isAuthenticated, controller.deleteAllProductsFromCart);
+
+router.put("/:cid/purchase", isAuthenticated, ticketController.create);
 
 export default router;
