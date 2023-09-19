@@ -1,11 +1,11 @@
-import { TEXTS } from "../constants/texts.js";
-import ProductDAO from "../daos/db/product.dao.js";
+import ProductDAO from "../persistence/daos/db/product.dao.js";
 import {
   NotFoundError,
   ServerError,
   ServiceError,
   ValidationError,
 } from "../managers/error.manager.js";
+import { TEXTS } from "../constants/texts.js";
 
 const productDAO = new ProductDAO();
 

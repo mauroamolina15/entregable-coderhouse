@@ -1,18 +1,18 @@
 import {
   PRODUCTS_FILE_PATH,
   PRODUCT_REQUIRED_FIELDS,
-} from "../../constants/index.js";
-import { TEXTS } from "../../constants/texts.js";
+} from "../../../constants/index.js";
+import { TEXTS } from "../../../constants/texts.js";
 import {
   NotFoundError,
   ValidationError,
-} from "../../managers/error.manager.js";
+} from "../../../managers/error.manager.js";
 import {
   getDataFromFile,
   saveDataInFile,
   generateIncrementalID,
-} from "../../utils/index.js";
-import { validateRequiredFields } from "../../utils/validations.js";
+} from "../../../utils/index.js";
+import { validateRequiredFields } from "../../../utils/validations.js";
 
 export default class FSProductDAO {
   async addProduct(product) {

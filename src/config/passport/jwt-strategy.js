@@ -1,6 +1,6 @@
 import passport from "passport";
 import { ExtractJwt, Strategy as jwtStrategy } from "passport-jwt";
-import UserDao from "../../daos/db/user.dao.js";
+import UserDao from "../../persistence/daos/db/user.dao.js";
 import "dotenv/config";
 
 const userDao = new UserDao();

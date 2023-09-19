@@ -1,5 +1,5 @@
-import { TEXTS } from "../../constants/texts.js";
-import { BDError, NotFoundError } from "../../managers/error.manager.js";
+import { TEXTS } from "../../../constants/texts.js";
+import { BDError, NotFoundError } from "../../../managers/error.manager.js";
 import { Cart } from "./models/cart.model.js";
 import { Product } from "./models/product.model.js";
 

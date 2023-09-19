@@ -1,5 +1,5 @@
-import { TEXTS } from "../../constants/texts.js";
-import { NotFoundError } from "../../managers/error.manager.js";
+import { TEXTS } from "../../../constants/texts.js";
+import { NotFoundError } from "../../../managers/error.manager.js";
 import { Product } from "./models/product.model.js";
 
 export default class ProductDAO {

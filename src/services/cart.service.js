@@ -1,6 +1,6 @@
-import { TEXTS } from "../constants/texts.js";
-import CartDAO from "../daos/db/cart.dao.js";
+import CartDAO from "../persistence/daos/db/cart.dao.js";
 import { ValidationError } from "../managers/error.manager.js";
+import { TEXTS } from "../constants/texts.js";
 
 const cartDAO = new CartDAO();
 

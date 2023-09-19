@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import UserDao from "../../daos/db/user.dao.js";
+import UserDao from "../../persistence/daos/db/user.dao.js";
 
 const userDao = new UserDao();
 

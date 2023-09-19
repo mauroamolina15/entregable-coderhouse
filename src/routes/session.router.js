@@ -1,14 +1,12 @@
 import { Router } from "express";
 import passport from "passport";
+import { isAuthenticated } from "../middlewares/isAuthenticated.js";
+import { getByIdDTO } from "../controllers/user.controller.js";
 
 const router = Router();
 
-router.get(
-  "/current",
-  passport.authenticate("current", { session: false }),
-  (req, res) => {
-    res.json({ user: req.user });
-  }
-);
+router.get("/current", getByIdDTO, isAuthenticated, (req, res) => {
+  res.render("profile");
+});
 
 export default router;

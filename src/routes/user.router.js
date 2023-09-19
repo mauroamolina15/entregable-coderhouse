@@ -5,7 +5,7 @@ const router = Router();
 
 router.post("/register", controller.registerUser);
 router.post("/register-front", controller.viewRegister);
-router.post("/login", controller.loginUser);
+// router.post("/login", controller.loginUser);
 router.post("/login-front", controller.viewLogin);
 router.get("/logout", controller.logout);
 router.get("/logout-front", controller.viewLogout);
@@ -23,6 +23,15 @@ router.get(
     failureRedirect: "/error-login",
     successRedirect: "/api/views/products?loginSuccessful=true",
   })
+);
+
+router.post(
+  "/login",
+  passport.authenticate("login", {
+    failureRedirect: "/error-login",
+    successRedirect: "/api/views/products?loginSuccessful=true",
+  }),
+  controller.getByIdDTO
 );
 
 export default router;

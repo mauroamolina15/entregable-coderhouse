@@ -31,3 +31,7 @@ export const generateIncrementalID = (items) => {
 export const hash = (pwd) => hashSync(pwd, genSaltSync(10));
 
 export const isValidPassword = (pwd, user) => compareSync(pwd, user.password);
+
+export const createResponse = (res, statusCode, data) => {
+  return res.status(statusCode).json({ data });
+};

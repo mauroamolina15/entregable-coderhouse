@@ -2,7 +2,7 @@ import { Strategy as GithubStrategy } from "passport-github2";
 import passport from "passport";
 import dotenv from "dotenv";
 
-import UserDao from "../../daos/db/user.dao.js";
+import UserDao from "../../persistence/daos/db/user.dao.js";
 
 dotenv.config();
 

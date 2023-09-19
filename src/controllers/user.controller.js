@@ -67,3 +67,20 @@ export const viewLogout = (req, res) => {
   res.clearCookie("token");
   res.redirect("/login");
 };
+
+export const getByIdDTO = async (req, res, next) => {
+  try {
+    const user = await service.getByIdDTO(req.user.id);
+    console.log({ user });
+    if (req.path == "/current") {
+      res.locals.user = user;
+      next();
+    } else res.json(user);
+  } catch (err) {
+    if (!req.path) {
+      if (req.path == "/current") next(err.message);
+      else console.log(err);
+    } else console.log(err);
+    next(err.message);
+  }
+};

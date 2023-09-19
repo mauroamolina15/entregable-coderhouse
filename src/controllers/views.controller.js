@@ -17,3 +17,7 @@ export const errorLogin = (req, res) => {
 export const profile = (req, res) => {
   res.render("profile");
 };
+
+export const chat = (req, res) => {
+  res.render("chat");
+};

@@ -1,4 +1,4 @@
-import { hash, isValidPassword } from "../../utils/index.js";
+import { hash, isValidPassword } from "../../../utils/index.js";
 import { User } from "./models/user.model.js";
 
 export default class UserDao {
