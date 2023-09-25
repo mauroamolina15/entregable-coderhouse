@@ -1,6 +1,6 @@
 import { compareSync, genSaltSync, hashSync } from "bcrypt";
 import { existsSync, promises } from "fs";
-import jwt from "jsonwebtoken";
+import { fakerES_MX as faker } from "@faker-js/faker";
 
 export const getJwtKey = () => {
   const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -34,4 +34,17 @@ export const isValidPassword = (pwd, user) => compareSync(pwd, user.password);
 
 export const createResponse = (res, statusCode, data) => {
   return res.status(statusCode).json({ data });
+};
+
+export const generateFakeProduct = () => {
+  return {
+    title: faker.commerce.productName(),
+    description: faker.commerce.productDescription(),
+    code: "02" + faker.string.numeric(5),
+    price: faker.commerce.price(),
+    stock: faker.string.numeric(2),
+    category: "pterm",
+    status: faker.number.int(1) === 1 ? "true" : "false",
+    thumbnails: faker.image.urlLoremFlickr({ category: "business" }),
+  };
 };
