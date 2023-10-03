@@ -16,6 +16,8 @@ import "./config/passport/local-strategy.js";
 import "./config/passport/github-strategy.js";
 import "./config/passport/jwt-strategy.js";
 import "./config/connection.js";
+import { loggerProd } from "./utils/logger/prod.logger.js";
+import { loggerDev } from "./utils/logger/dev.logger.js";
 
 const mongoStoreOptions = {
   store: MongoStore.create({
@@ -39,6 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use(userSession);
 app.use(cookieParser());
+app.use(process.env.NODE_ENV === "production" ? loggerProd : loggerDev);
 
 app.engine(
   "handlebars",
