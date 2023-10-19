@@ -1,0 +1,270 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: API de <link>Productos</link>
+  description: API para gestionar <link>productos</link>
+paths:
+  /api/products:
+    get:
+      summary: Obtener todos los <link>productos</link>
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: <link>Producto</link> no encontrado
+    post:
+      summary: Crear un nuevo <link>producto</link>
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/<link>Producto</link>"
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Error en la creación del <link>producto</link>
+  /api/products/{pid}:
+    get:
+      summary: Obtener un <link>producto</link> por ID
+      parameters:
+        - in: path
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: ID del <link>producto</link>
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: <link>Producto</link> no encontrado
+    put:
+      summary: Actualizar un <link>producto</link> por ID
+      parameters:
+        - in: path
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: ID del <link>producto</link>
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/<link>Producto</link>"
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Error en la actualización del <link>producto</link>
+    delete:
+      summary: Eliminar un <link>producto</link> por ID
+      parameters:
+        - in: path
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: ID del <link>producto</link>
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: <link>Producto</link> no encontrado
+  schemas:
+    <link>Producto</link>:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        owner:
+          type: string
+  /api/carts/{cid}:
+    get:
+      summary: Obtener carrito por ID
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "404":
+          description: Carrito no encontrado
+          content:
+            application/json:
+              example:
+                msg: Carrito no encontrado
+    post:
+      summary: Crear un nuevo carrito
+      responses:
+        "200":
+          description: Carrito creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "404":
+          description: Error de validación
+          content:
+            application/json:
+              example:
+                msg: Error de validación
+
+  /api/carts/{cid}/{pid}:
+    put:
+      summary: Actualizar carrito
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        "404":
+          description: No encontrado
+          content:
+            application/json:
+              example:
+                msg: No encontrado
+
+    patch:
+      summary: Actualizar cantidad del producto en el carrito
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+              required:
+                - quantity
+      responses:
+        "200":
+          description: Producto actualizado exitosamente en el carrito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "404":
+          description: No encontrado
+          content:
+            application/json:
+              example:
+                msg: No encontrado
+
+    delete:
+      summary: Eliminar producto del carrito
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto eliminado exitosamente del carrito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: No encontrado
+          content:
+            application/json:
+              example:
+                msg: No encontrado
+
+  /api/carts/{cid}/empty:
+    delete:
+      summary: Vaciar carrito
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito vaciado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "404":
+          description: No encontrado
+          content:
+            application/json:
+              example:
+                msg: No encontrado
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+      required:
+        - id
+        - products
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+      required:
+        - id
+        - name
+        - price

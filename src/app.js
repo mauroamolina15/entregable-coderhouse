@@ -18,6 +18,9 @@ import "./config/passport/jwt-strategy.js";
 import "./config/connection.js";
 import { loggerProd } from "./utils/logger/prod.logger.js";
 import { loggerDev } from "./utils/logger/dev.logger.js";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUI from "swagger-ui-express";
+import { info } from "./docs/info.js";
 
 const mongoStoreOptions = {
   store: MongoStore.create({
@@ -35,6 +38,9 @@ const mongoStoreOptions = {
 };
 
 const app = express();
+
+const specs = swaggerJSDoc(info);
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
