@@ -32,9 +32,35 @@ const userSchema = new Schema({
     default: false,
     required: true,
   },
-  cart: {
-    type: Schema.Types.ObjectId,
-    ref: "carts",
+  isGoogle: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  documents: [
+    {
+      name: String,
+      reference: String,
+    },
+  ],
+  avatar: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  address: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  accountStatus: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  lastConecction: {
+    type: Date,
+    default: Date.now,
   },
 });
 

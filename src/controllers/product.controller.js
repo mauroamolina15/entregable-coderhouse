@@ -5,6 +5,7 @@ import { validateRequiredFields } from "../utils/validations.js";
 
 export const getProducts = async (req, res, next) => {
   try {
+    console.log(req.user);
     const args = req.query;
     const products = await service.getProducts(args);
     const nextLink = products.hasNextPage
