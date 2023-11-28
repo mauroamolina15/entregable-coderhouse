@@ -57,3 +57,22 @@ export const deleteProduct = async (pid) => {
     throw error;
   }
 };
+
+export const deleteAllProducts = async () => {
+  try {
+    const products = await productDAO.deleteAll();
+    if (!products) return false;
+    else return { msg: "Productos eliminados exitosamente." };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getProductByCode = async () => {
+  try {
+    const product = await productDAO.getProductByCode(code);
+    return product ? product : false;
+  } catch (error) {
+    logger.error(error);
+  }
+};

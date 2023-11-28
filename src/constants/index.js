@@ -12,3 +12,9 @@ export const PRODUCT_REQUIRED_FIELDS = [
   "status",
   "category",
 ];
+
+export const USER_ROLE = {
+  ADMIN: "admin",
+  PREMIUM: "premium",
+  STANDARD: "user",
+};

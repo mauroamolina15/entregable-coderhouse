@@ -107,7 +107,7 @@ export const createTicket = async (req, res, next) => {
 export const getCart = async (req, res, next) => {
   try {
     const { idCart } = req.params;
-    const cart = await service;
+    const cart = await service.getCart(idCart);
   } catch (err) {
     console.log(`[Error]: ${err.message}`);
     next(err);

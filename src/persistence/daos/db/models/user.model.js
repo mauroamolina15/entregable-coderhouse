@@ -41,6 +41,7 @@ const userSchema = new Schema({
     {
       name: String,
       reference: String,
+      _id: false,
     },
   ],
   avatar: {
@@ -61,6 +62,11 @@ const userSchema = new Schema({
   lastConecction: {
     type: Date,
     default: Date.now,
+  },
+  identification: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
 });
 

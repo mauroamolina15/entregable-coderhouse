@@ -76,3 +76,68 @@ export const deleteAllProductsFromCart = async (cid) => {
     throw err;
   }
 };
+
+export const getCart = async (cid) => {
+  try {
+    const cart = await cartDAO.getCartById(cid);
+    if (cart) return cart;
+    throw new ValidationError("Cart not found");
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const createCartsMockData = async () => {
+  const carts = await cartDAO.createMockCarts();
+  return carts;
+};
+
+export const getCarts = async () => {
+  try {
+    const carts = await cartDAO.getCarts();
+    if (carts) return carts;
+    throw new ValidationError("Carts not found");
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteCart = async (cid) => {
+  try {
+    const cart = await cartDAO.deleteCart(cid);
+    if (cart) return cart;
+    throw new ValidationError("Cart not found");
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getTotal = async (cid) => {
+  try {
+    const total = await cartDAO.getTotal(cid);
+    if (total) return total;
+    throw new ValidationError("Cart not found");
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getCartByEmail = async (email) => {
+  try {
+    const cart = await cartDAO.getCartByEmail(email);
+    if (cart) return cart;
+    throw new ValidationError("Cart not found");
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteAllCarts = async () => {
+  try {
+    const carts = await cartDAO.deleteAllCarts();
+    if (carts) return carts;
+    throw new ValidationError("Error deleting carts");
+  } catch (err) {
+    throw err;
+  }
+};

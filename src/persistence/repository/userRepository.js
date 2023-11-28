@@ -1,5 +1,5 @@
 import UserDao from "../daos/db/user.dao.js";
-import UserResDTO from "../dtos/userResDTO.js";
+import UserResDTO from "../dtos/user/userResDTO.js";
 
 const userDao = new UserDao();
 

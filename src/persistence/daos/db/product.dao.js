@@ -132,4 +132,13 @@ export default class ProductDAO {
       logger.error(err);
     }
   }
+
+  async deleteAll() {
+    try {
+      const response = await Product.deleteMany();
+      return response;
+    } catch (error) {
+      logger.error(error);
+    }
+  }
 }
